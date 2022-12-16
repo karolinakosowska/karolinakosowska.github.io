@@ -1,4 +1,6 @@
+from queue import Queue
 import numpy as np
+
 
 class Graph:
 
@@ -17,6 +19,9 @@ class Graph:
     def __set_edge(self, edge):
         self.edge = edge
 
+    def is_empty(self):
+        return True if self.vertex == 0 else False
+
     def get_number_of_vertices(self):
         return self.vertex
 
@@ -26,6 +31,9 @@ class Graph:
     def is_directed(self):
         return True if self.directed else False
 
+    def has_vertex(self, v):
+        return True if v < self.vertex else False
+
     def add_vertex(self):
         self.vertex += 1
         self.matrix.append([0] * self.vertex)
@@ -34,66 +42,110 @@ class Graph:
             self.matrix[i].extend([0])
 
     def remove_vertex(self, v):
-        if v < self.vertex:
-            self.vertex -= 1
-            self.matrix.pop(v)
-            for vertex in self.matrix:
-                vertex.pop(v)
-        else:
-            print("This vertex doesn't exist!")
-
-    def has_vertex(self, v):
-        return True if v < self.vertex else False
-
-    def add_edge(self, v1, v2, weight=1):
-        if v1 != v2:
-            if not self.has_edge(v1, v2):
-                self.edge += 1
-                self.matrix[v1][v2] = weight
-                if not self.directed:
-                    self.matrix[v2][v1] = weight
-            else:
-                print("This edge has already existed!")
-        else:
-            print("It's a simple graph. It doesn't contain loops.")
-
-    def modify_weight(self, v1, v2, weight):
-        if self.has_edge(v1, v2):
-            self.matrix[v1][v2] = weight
-        else:
-            print("This edge doesn't exist!")
-
-    def remove_edge(self, v1, v2):
-        if self.has_edge(v1, v2):
-            self.edge -= 1
-            self.matrix[v1][v2] = 0
-            if not self.directed:
-                self.matrix[v2][v1] = 0
-        else:
-            print("This edge doesn't exist!")
+        self.vertex -= 1
+        self.matrix.pop(v)
+        for vertex in self.matrix:
+            vertex.pop(v)
 
     def has_edge(self, v1, v2):
         return True if self.matrix[v1][v2] else False
+
+    def add_edge(self, v1, v2, weight=1):
+        self.edge += 1
+        self.matrix[v1][v2] = weight
+        if not self.directed:
+            self.matrix[v2][v1] = weight
+
+    def remove_edge(self, v1, v2):
+        self.edge -= 1
+        self.matrix[v1][v2] = 0
+        if not self.directed:
+            self.matrix[v2][v1] = 0
+
+    def modify_weight(self, v1, v2, weight):
+        self.matrix[v1][v2] = weight
+        if not self.directed:
+            self.matrix[v2][v1] = weight
 
     def weight(self, v1, v2):
         return self.matrix[v1][v2]
 
     def print_matrix(self):
-        print(self.matrix)
-        if self.vertex > 0:
-            for vertex in self.matrix:
-                for edge in vertex:
-                    print(edge, end=" ")
-                print()
-        else:
-            print("Graph is empty!")
+        print(" ", end="  ")
+        for i in range(self.vertex):
+            if i < 10:
+                print(i, end="  ")
+            else:
+                print(i, end=" ")
+        print()
+        i = 0
+        for vertex in self.matrix:
+            if i < 10:
+                print(i, end="  ")
+            else:
+                print(i, end=" ")
+            for edge in vertex:
+                print(edge, end="  ")
+            print()
+            i += 1
 
-    def copy(self):
-        g = Graph(self.directed)
-        g.__set_matrix(self.matrix.copy())
-        g.__set_vertex(self.vertex)
-        g.__set_edge(self.edge)
-        return g
+    def iter_vertices(self):
+        for i in range(self.vertex):
+            yield i
+
+    def iter_adjacent(self, v):
+        for i in range(self.vertex):
+            if self.matrix[v][i] > 0:
+                yield i
+
+    def iter_out_edges(self, v):
+        for i in range(self.vertex):
+            if self.matrix[v][i] > 0:
+                yield v, i
+
+    def iter_in_edges(self, v):
+        for i in range(self.vertex):
+            if self.matrix[i][v] > 0:
+                yield i, v
+
+    def iter_edges(self):
+        for i in range(self.vertex):
+            for j in range(self.vertex):
+                if self.matrix[i][j] > 0:
+                    yield i, j
+
+    def dfs(self, v=0):
+        visited = [False] * self.vertex
+        self.dfs1(visited, v)
+        for v in range(self.vertex):
+            if not visited[v]:
+                self.dfs1(visited, v)
+
+    def dfs1(self, visited, v):
+        visited[v] = True
+        print(v, end=" ")
+        for vertex in self.iter_adjacent(v):
+            if not visited[vertex]:
+                self.dfs1(visited, vertex)
+
+    def bfs(self, v=0):
+        visited = [False] * self.vertex
+        q = Queue()
+        self.bfs1(visited, v, q)
+        for v in range(self.vertex):
+            if not visited[v]:
+                self.bfs1(visited, v, q)
+
+    def bfs1(self, visited, v, q):
+        q.put(v)
+        visited[v] = True
+        while not q.empty():
+            v = q.get()
+            print(v, end=" ")
+            for vertex in self.iter_adjacent(v):
+                if not visited[vertex]:
+                    q.put(vertex)
+                    visited[vertex] = True
 
     def transpose(self):
         g = Graph(self.directed)
@@ -107,32 +159,7 @@ class Graph:
         new_matrix = self.matrix.copy()
         for i in range(self.vertex):
             new_matrix[i] = [1 if edge == 0 else 0 for edge in new_matrix[i]]
-
-        for vertex in new_matrix:
-            vertex = [1 if edge == 0 else 0 for edge in vertex]
         g.__set_matrix(new_matrix)
         g.__set_vertex(self.vertex)
         g.__set_edge(self.edge)
         return g
-
-    def subgraph(self, nodes):
-        pass  # zwraca podgraf indukowa
-
-
-g = Graph(True)
-g.add_vertex()
-g.add_vertex()
-g.add_vertex()
-g.add_vertex()
-
-g.add_edge(0, 3, 5)
-g.add_edge(1, 3, 2)
-g.add_edge(1, 2, 3)
-g.print_matrix()
-print()
-
-g1 = g.complement()
-g1.print_matrix()
-# lista list - macierz sąsiedztwa
-# dodawanie wierzchołków
-# dodawanie krawędzi
