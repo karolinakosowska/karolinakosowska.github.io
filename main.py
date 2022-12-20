@@ -1,6 +1,11 @@
 from Graph import *
 
 
+def load():
+    name = input("Enter name of file with extension .txt: ")
+    return Graph.load_from_file(name)
+
+
 def add_vertex(g):
     g.add_vertex()
 
@@ -146,21 +151,41 @@ def bfs(g):
     g.bfs()
 
 
+def save(g):
+    name = input("Enter name of file with extension .txt: ")
+    g.save_to_file(name)
+
+
 if __name__ == '__main__':
     choice = 0
     graph = None
+    new_graph = False
+
     while choice != 1 and choice != 2:
-        choice = int(input("Select a graph type:\n"
-                           "1. Directed\n"
-                           "2. Undirected\n"))
+        choice = int(input("Choose what you want to do:\n"
+                           "1. Create new graph\n"
+                           "2. Load graph from file\n"))
         if choice == 1:
-            graph = Graph(True)
+            new_graph = True
         elif choice == 2:
-            graph = Graph()
+            graph = load()
         else:
             print("Wrong option. Try again\n")
 
-    while choice != 22:
+    choice = 0
+    if new_graph:
+        while choice != 1 and choice != 2:
+            choice = int(input("\nSelect a graph type:\n"
+                               "1. Directed\n"
+                               "2. Undirected\n"))
+            if choice == 1:
+                graph = Graph(True)
+            elif choice == 2:
+                graph = Graph()
+            else:
+                print("Wrong option. Try again\n")
+
+    while choice != 24:
         choice = int(input(
             "\nChoose what you want to do:\n"
             "1. Add vertex\n"
@@ -173,18 +198,20 @@ if __name__ == '__main__':
             "8. Get number of edges\n"
             "9. Check if vertex exists\n"
             "10. Check if edge exists\n"
-            "11. Check edge weight\n"
-            "12. Display graph adjacency matrix\n"
-            "13. Display vertices\n"
-            "14. Display edges\n"
-            "15. Display adjacent vertices\n"
-            "16. Display outgoing edges\n"
-            "17. Display incoming edges\n"
-            "18. Display transposed graph\n"
-            "19. Display graph complement\n"
-            "20. DFS\n"
-            "21. BFS\n"
-            "22. Exit\n"
+            "11. Check if graph is directed\n"
+            "12. Check edge weight\n"
+            "13. Display graph adjacency matrix\n"
+            "14. Display vertices\n"
+            "15. Display edges\n"
+            "16. Display adjacent vertices\n"
+            "17. Display outgoing edges\n"
+            "18. Display incoming edges\n"
+            "19. Display transposed graph\n"
+            "20. Display graph complement\n"
+            "21. DFS\n"
+            "22. BFS\n"
+            "23. Save graph to file\n"
+            "24. Exit\n"
         ))
 
         if choice == 1:
@@ -208,28 +235,32 @@ if __name__ == '__main__':
         elif choice == 10:
             has_edge(graph)
         elif choice == 11:
-            weight(graph)
+            print(graph.is_directed())
         elif choice == 12:
-            print_matrix(graph)
+            weight(graph)
         elif choice == 13:
-            print_vertices(graph)
+            print_matrix(graph)
         elif choice == 14:
-            print_edges(graph)
+            print_vertices(graph)
         elif choice == 15:
-            print_adjacent_vertices(graph)
+            print_edges(graph)
         elif choice == 16:
-            print_out_edges(graph)
+            print_adjacent_vertices(graph)
         elif choice == 17:
-            print_in_edges(graph)
+            print_out_edges(graph)
         elif choice == 18:
-            print_transposed(graph)
+            print_in_edges(graph)
         elif choice == 19:
-            print_complement(graph)
+            print_transposed(graph)
         elif choice == 20:
-            dfs(graph)
+            print_complement(graph)
         elif choice == 21:
-            bfs(graph)
+            dfs(graph)
         elif choice == 22:
+            bfs(graph)
+        elif choice == 23:
+            save(graph)
+        elif choice == 24:
             print("See you soon!")
         else:
             print("Wrong option. Try again")

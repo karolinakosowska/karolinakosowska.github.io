@@ -1,5 +1,6 @@
 from queue import Queue
 import numpy as np
+import json
 
 
 class Graph:
@@ -163,3 +164,26 @@ class Graph:
         g.__set_vertex(self.vertex)
         g.__set_edge(self.edge)
         return g
+
+    @staticmethod
+    def load_from_file(name):
+        f = open(name)
+        g = Graph(json.loads(f.readline()))
+        g.__set_vertex(json.loads(f.readline()))
+        g.__set_edge(json.loads(f.readline()))
+        new_matrix = []
+        for i in range(g.vertex):
+            new_matrix.append(json.loads(f.readline()))
+        g.__set_matrix(new_matrix)
+        f.close()
+        return g
+
+    def save_to_file(self, name):
+        f = open(name, "w")
+        f.write(json.dumps(self.is_directed()) + "\n")
+        f.write(json.dumps(self.vertex) + "\n")
+        f.write(json.dumps(self.edge) + "\n")
+        for i in range(self.vertex):
+            f.write(json.dumps(self.matrix[i]) + "\n")
+        f.close()
+
