@@ -11,14 +11,6 @@ def add_multiple_vertices(g):
         g.add_vertex()
 
 
-def remove_vertex(g):
-    v = int(input("Enter vertex to remove: "))
-    if not g.has_vertex(v):
-        print(f"Vertex {v} doesn't exist!")
-    else:
-        g.remove_vertex(v)
-
-
 def add_edge(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge to add: ").split()]
     if not g.has_vertex(v1):
@@ -48,6 +40,14 @@ def remove_edge(g):
         print("This edge doesn't exist!")
     else:
         g.remove_edge(v1, v2)
+
+
+def remove_connections_with_vertex(g):
+    v = int(input("Enter vertex to remove connections: "))
+    if not g.has_vertex(v):
+        print(f"Vertex {v} doesn't exist!")
+    else:
+        g.remove_connections_with_vertex(v)
 
 
 def modify_weight(g):
@@ -165,9 +165,9 @@ if __name__ == '__main__':
             "\nChoose what you want to do:\n"
             "1. Add vertex\n"
             "2. Add multiple vertices\n"
-            "3. Remove vertex\n"
-            "4. Add edge\n"
-            "5. Remove edge\n"
+            "3. Add edge\n"
+            "4. Remove edge\n"
+            "5. Remove connections with vertex\n"
             "6. Modify edge weight\n"
             "7. Get number of vertices\n"
             "8. Get number of edges\n"
@@ -192,11 +192,11 @@ if __name__ == '__main__':
         elif choice == 2:
             add_multiple_vertices(graph)
         elif choice == 3:
-            remove_vertex(graph)
-        elif choice == 4:
             add_edge(graph)
-        elif choice == 5:
+        elif choice == 4:
             remove_edge(graph)
+        elif choice == 5:
+            remove_connections_with_vertex(graph)
         elif choice == 6:
             modify_weight(graph)
         elif choice == 7:

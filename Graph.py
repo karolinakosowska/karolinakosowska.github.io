@@ -41,12 +41,6 @@ class Graph:
         for i in range(self.vertex - 1):
             self.matrix[i].extend([0])
 
-    def remove_vertex(self, v):
-        self.vertex -= 1
-        self.matrix.pop(v)
-        for vertex in self.matrix:
-            vertex.pop(v)
-
     def has_edge(self, v1, v2):
         return True if self.matrix[v1][v2] else False
 
@@ -61,6 +55,12 @@ class Graph:
         self.matrix[v1][v2] = 0
         if not self.directed:
             self.matrix[v2][v1] = 0
+
+    def remove_connections_with_vertex(self, v):
+        for i in range(self.vertex):
+            self.remove_edge(i, v)
+            if self.directed:
+                self.remove_edge(v, i)
 
     def modify_weight(self, v1, v2, weight):
         self.matrix[v1][v2] = weight
