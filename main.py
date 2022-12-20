@@ -153,13 +153,12 @@ if __name__ == '__main__':
         choice = int(input("Select a graph type:\n"
                            "1. Directed\n"
                            "2. Undirected\n"))
-        match choice:
-            case 1:
-                graph = Graph(True)
-            case 2:
-                graph = Graph()
-            case _:
-                print("Wrong option. Try again\n")
+        if choice == 1:
+            graph = Graph(True)
+        elif choice == 2:
+            graph = Graph()
+        else:
+            print("Wrong option. Try again\n")
 
     while choice != 22:
         choice = int(input(
@@ -188,50 +187,49 @@ if __name__ == '__main__':
             "22. Exit\n"
         ))
 
-        match choice:
-            case 1:
-                add_vertex(graph)
-            case 2:
-                add_multiple_vertices(graph)
-            case 3:
-                remove_vertex(graph)
-            case 4:
-                add_edge(graph)
-            case 5:
-                remove_edge(graph)
-            case 6:
-                modify_weight(graph)
-            case 7:
-                print(graph.get_number_of_vertices())
-            case 8:
-                print(graph.get_number_of_edges())
-            case 9:
-                has_vertex(graph)
-            case 10:
-                has_edge(graph)
-            case 11:
-                weight(graph)
-            case 12:
-                print_matrix(graph)
-            case 13:
-                print_vertices(graph)
-            case 14:
-                print_edges(graph)
-            case 15:
-                print_adjacent_vertices(graph)
-            case 16:
-                print_out_edges(graph)
-            case 17:
-                print_in_edges(graph)
-            case 18:
-                print_transposed(graph)
-            case 19:
-                print_complement(graph)
-            case 20:
-                dfs(graph)
-            case 21:
-                bfs(graph)
-            case 22:
-                print("See you soon!")
-            case _:
-                print("Wrong option. Try again")
+        if choice == 1:
+            add_vertex(graph)
+        elif choice == 2:
+            add_multiple_vertices(graph)
+        elif choice == 3:
+            remove_vertex(graph)
+        elif choice == 4:
+            add_edge(graph)
+        elif choice == 5:
+            remove_edge(graph)
+        elif choice == 6:
+            modify_weight(graph)
+        elif choice == 7:
+            print(graph.get_number_of_vertices())
+        elif choice == 8:
+            print(graph.get_number_of_edges())
+        elif choice == 9:
+            has_vertex(graph)
+        elif choice == 10:
+            has_edge(graph)
+        elif choice == 11:
+            weight(graph)
+        elif choice == 12:
+            print_matrix(graph)
+        elif choice == 13:
+            print_vertices(graph)
+        elif choice == 14:
+            print_edges(graph)
+        elif choice == 15:
+            print_adjacent_vertices(graph)
+        elif choice == 16:
+            print_out_edges(graph)
+        elif choice == 17:
+            print_in_edges(graph)
+        elif choice == 18:
+            print_transposed(graph)
+        elif choice == 19:
+            print_complement(graph)
+        elif choice == 20:
+            dfs(graph)
+        elif choice == 21:
+            bfs(graph)
+        elif choice == 22:
+            print("See you soon!")
+        else:
+            print("Wrong option. Try again")
