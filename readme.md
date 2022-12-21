@@ -25,7 +25,7 @@ If more than one number is required, they should be separated by a space.
 
 Run `python3 main.py` from the shell.
 
-Detailed documentation available at: https://karolinakosowska.github.io/graph.html.
+Detailed documentation available at: https://karolinakosowska.github.io/build/html/graph.html.
 
 
 
