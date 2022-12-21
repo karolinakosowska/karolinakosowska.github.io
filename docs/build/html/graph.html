@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>class Graph &#8212; Graphs  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Graphs’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="class-graph">
+<h1>class Graph<a class="headerlink" href="#class-graph" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Graph.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class to represent a graph.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>matrix<span class="classifier">list</span></dt><dd><p>graph adjacency matrix</p>
+</dd>
+<dt>directed<span class="classifier">bool</span></dt><dd><p>boolean flag for the graph type - True means directed graph, False means undirected</p>
+</dd>
+<dt>vertex<span class="classifier">int</span></dt><dd><p>number of graph vertices</p>
+</dd>
+<dt>edge<span class="classifier">int</span></dt><dd><p>number of graph edges</p>
+</dd>
+</dl>
+</dd>
+<dt>Methods:</dt><dd><dl class="simple">
+<dt>is_empty()</dt><dd><p>Returns boolean if graph is empty.</p>
+</dd>
+<dt>get_number_of_vertices()</dt><dd><p>Returns number of graph vertices.</p>
+</dd>
+<dt>get_number_of_edges()</dt><dd><p>Returns number of graph edges.</p>
+</dd>
+<dt>is_directed()</dt><dd><p>Returns boolean if graph is directed.</p>
+</dd>
+<dt>has_vertex(v)</dt><dd><p>Returns boolean if graph contains vertex v.</p>
+</dd>
+<dt>add_vertex()</dt><dd><p>Adds vertex to graph.</p>
+</dd>
+<dt>has_edge(v1, v2)</dt><dd><p>Returns boolean if graph contains edge between vertices v1 and v2.</p>
+</dd>
+<dt>add_edge(v1, v2, weight=1)</dt><dd><p>Adds edge between vertices v1 and v2 with weight to graph.</p>
+</dd>
+<dt>remove_edge(v1, v2)</dt><dd><p>Removes edge between vertices v1 and v2 from graph.</p>
+</dd>
+<dt>remove_connections_with_vertex(v)</dt><dd><p>Removes all connections with vertex v.</p>
+</dd>
+<dt>modify_weight(v1, v2, weight)</dt><dd><p>Modifies edge weight between vertices v1 and v2.</p>
+</dd>
+<dt>weight(v1, v2)</dt><dd><p>Returns edge weight between vertices v1 and v2.</p>
+</dd>
+<dt>print_matrix()</dt><dd><p>Prints graph matrix adjacency.</p>
+</dd>
+<dt>iter_vertices()</dt><dd><p>Iterates over vertices of graph.</p>
+</dd>
+<dt>iter_adjacent(v)</dt><dd><p>Iterates over adjacent vertices of vertex v.</p>
+</dd>
+<dt>iter_out_edges(v)</dt><dd><p>Iterates over outgoing edges from vertex v.</p>
+</dd>
+<dt>iter_in_edges(v)</dt><dd><p>Iterates over incoming edges to vertex v.</p>
+</dd>
+<dt>iter_edges()</dt><dd><p>Iterates over edges of graph.</p>
+</dd>
+<dt>dfs(v=0)</dt><dd><p>Prints vertices in DFS order.</p>
+</dd>
+<dt>bfs(v=0)</dt><dd><p>Prints vertices in BFS order.</p>
+</dd>
+<dt>transpose()</dt><dd><p>Prints transposed graph matrix adjacency.</p>
+</dd>
+<dt>complement()</dt><dd><p>Prints complement of graph matrix adjacency.</p>
+</dd>
+<dt>load_from_file(name)</dt><dd><p>Loads graph from file.</p>
+</dd>
+<dt>save_to_file(name)</dt><dd><p>Saves graph to file.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.add_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds edge between vertices v1 and v2 with weight to graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – number of first vertex of edge</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – number of second vertex of edge</p></li>
+<li><p><strong>weight</strong> (<em>int</em><em> or </em><em>None</em>) – weight of edge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if one of given vertex doesn’t exist, given vertices are identical, edge has already existed or given weight is equal to 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.add_vertex">
+<span class="sig-name descname"><span class="pre">add_vertex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.add_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds vertex to graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.bfs">
+<span class="sig-name descname"><span class="pre">bfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.bfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints vertices in BFS order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em><em> or </em><em>None</em>) – number of starting vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.complement">
+<span class="sig-name descname"><span class="pre">complement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints complement of graph matrix adjacency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.dfs">
+<span class="sig-name descname"><span class="pre">dfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints vertices in DFS order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em><em> or </em><em>None</em>) – number of starting vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.get_number_of_edges">
+<span class="sig-name descname"><span class="pre">get_number_of_edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.get_number_of_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of graph edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>number of graph edges</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.get_number_of_vertices">
+<span class="sig-name descname"><span class="pre">get_number_of_vertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.get_number_of_vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of graph vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>number of graph vertices</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.has_edge">
+<span class="sig-name descname"><span class="pre">has_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.has_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns boolean if graph contains edge between vertices v1 and v2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – number of first vertex of edge</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – number of second vertex of edge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean flag if graph contains edge of given vertices</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if one of given vertices doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.has_vertex">
+<span class="sig-name descname"><span class="pre">has_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.has_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns boolean if graph contains vertex v.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) – number of vertex</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean flag if graph contains given vertex</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.is_directed">
+<span class="sig-name descname"><span class="pre">is_directed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.is_directed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns boolean if graph is directed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boolean flag if graph is directed</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.is_empty">
+<span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns boolean if graph is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boolean flag if graph is empty</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.iter_adjacent">
+<span class="sig-name descname"><span class="pre">iter_adjacent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.iter_adjacent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over adjacent vertices of vertex v.
+:param v: number of vertex
+:return: next adjacent vertex of given vertex
+:raise Exception: if given vertex doesn’t exist</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.iter_edges">
+<span class="sig-name descname"><span class="pre">iter_edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.iter_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over edges of graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>next edge</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.iter_in_edges">
+<span class="sig-name descname"><span class="pre">iter_in_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.iter_in_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over incoming edges to vertex v.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> – number of vertex</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>next incoming edge to given vertex</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – if given vertex doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.iter_out_edges">
+<span class="sig-name descname"><span class="pre">iter_out_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.iter_out_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over outgoing edges from vertex v.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> – number of vertex</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>next outgoing edge from given vertex</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – if given vertex doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.iter_vertices">
+<span class="sig-name descname"><span class="pre">iter_vertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.iter_vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over vertices of graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>next vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.load_from_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.load_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads graph from file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of file to load</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Graph object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Graph.Graph" title="Graph.Graph">Graph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.modify_weight">
+<span class="sig-name descname"><span class="pre">modify_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.modify_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies edge weight between vertices v1 and v2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – number of first vertex of edge</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – number of second vertex of edge</p></li>
+<li><p><strong>weight</strong> (<em>int</em>) – new weight of edge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if one of given vertex or edge between given vertices doesn’t exist or given weight is equal to 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.print_matrix">
+<span class="sig-name descname"><span class="pre">print_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.print_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints graph matrix adjacency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – if graph is empty</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.remove_connections_with_vertex">
+<span class="sig-name descname"><span class="pre">remove_connections_with_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.remove_connections_with_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all connections with vertex v.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) – number of vertex</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if given vertex doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.remove_edge">
+<span class="sig-name descname"><span class="pre">remove_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.remove_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes edge between vertices v1 and v2 from graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – number of first vertex of edge</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – number of second vertex of edge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if one of given vertex or edge between given vertices doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.save_to_file">
+<span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.save_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves graph to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of file to save</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.transpose">
+<span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints transposed graph matrix adjacency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Graph.Graph.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Graph.Graph.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns edge weight between vertices v1 and v2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – number of first vertex of edge</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – number of second vertex of edge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – if one of given vertex or edge between given vertices doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Graphs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">class Graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Graph.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Graphs’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Karolina Kosowska.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/graph.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
