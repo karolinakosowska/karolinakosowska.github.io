@@ -7,7 +7,9 @@ Graphs are represented by an adjacency matrix.
 
 You can:
 - create a graph - directed or undirected, 
-- add and remove vertices and edges, 
+- load graph from file,
+- add vertices and edges, 
+- remove edges and all connections with vertices
 - specify and modify edge weight,
 - check number of vertices and edges, 
 - check if a specific vertex/edge exists,
@@ -15,11 +17,13 @@ You can:
 - display vertices, edges, adjacency vertices and outgoing/incoming edges,
 - display transposed graph,
 - display graph complement,
-- display vertices in DFS and BFS order.
+- display vertices in DFS and BFS order,
+- save graph to file.
 
 After starting, a menu is displayed which is operated by entering the option number and confirming it with the "Enter" button.
 If more than one number is required, they should be separated by a space.
 
-Python 3.10 is required to run the program.
 Run `python3 main.py` from the shell.
+
+
 
