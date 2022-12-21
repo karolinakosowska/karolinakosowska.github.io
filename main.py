@@ -1,9 +1,21 @@
+import sys
+
 from Graph import *
 
 
 def load():
-    name = input("Enter name of file with extension .txt: ")
-    return Graph.load_from_file(name)
+    try:
+        name = input("Enter name of file with extension .txt: ")
+        return Graph.load_from_file(name)
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit()
+    except JSONDecodeError as e:
+        print("Empty file")
+        sys.exit()
+    except Exception as e:
+        print("Unknown error")
+        sys.exit()
 
 
 def add_vertex(g):
@@ -18,54 +30,43 @@ def add_multiple_vertices(g):
 
 def add_edge(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge to add: ").split()]
-    if not g.has_vertex(v1):
-        print(f"Vertex {v1} doesn't exist!")
-    elif not g.has_vertex(v2):
-        print(f"Vertex {v2} doesn't exist!")
-    elif v1 == v2:
-        print("It's a simple graph. It doesn't contain loops.")
-    elif g.has_edge(v1, v2):
-        print("This edge has already existed!")
+    try:
+        w = int(input("Enter the edge weight. If you don't want to specify weight, press Enter: "))
+    except ValueError:
+        try:
+            g.add_edge(v1, v2)
+        except Exception as e:
+            print(e)
     else:
         try:
-            w = int(input("Enter the edge weight. If you don't want to specify weight, press Enter: "))
-        except ValueError:
-            g.add_edge(v1, v2)
-        else:
             g.add_edge(v1, v2, w)
+        except Exception as e:
+            print(e)
 
 
 def remove_edge(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge to remove: ").split()]
-    if not g.has_vertex(v1):
-        print(f"Vertex {v1} doesn't exist!")
-    elif not g.has_vertex(v2):
-        print(f"Vertex {v2} doesn't exist!")
-    elif not g.has_edge(v1, v2):
-        print("This edge doesn't exist!")
-    else:
+    try:
         g.remove_edge(v1, v2)
+    except Exception as e:
+        print(e)
 
 
 def remove_connections_with_vertex(g):
-    v = int(input("Enter vertex to remove connections: "))
-    if not g.has_vertex(v):
-        print(f"Vertex {v} doesn't exist!")
-    else:
+    try:
+        v = int(input("Enter vertex to remove connections: "))
         g.remove_connections_with_vertex(v)
+    except Exception as e:
+        print(e)
 
 
 def modify_weight(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge: ").split()]
-    if not g.has_vertex(v1):
-        print(f"Vertex {v1} doesn't exist!")
-    elif not g.has_vertex(v2):
-        print(f"Vertex {v2} doesn't exist!")
-    elif not g.has_edge(v1, v2):
-        print("This edge doesn't exist!")
-    else:
+    try:
         w = int(input("Enter the new edge weight: "))
         g.modify_weight(v1, v2, w)
+    except Exception as e:
+        print(e)
 
 
 def has_vertex(g):
@@ -75,31 +76,25 @@ def has_vertex(g):
 
 def has_edge(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge: ").split()]
-    if not g.has_vertex(v1):
-        print(f"Vertex {v1} doesn't exist!")
-    elif not g.has_vertex(v2):
-        print(f"Vertex {v2} doesn't exist!")
-    else:
+    try:
         print(f"Edge ({v1}, {v2}) exists" if g.has_edge(v1, v2) else f"Edge ({v1}, {v2}) doesn't exist")
+    except Exception as e:
+        print(e)
 
 
 def weight(g):
     v1, v2 = [int(x) for x in input("Enter vertices of edge: ").split()]
-    if not g.has_vertex(v1):
-        print(f"Vertex {v1} doesn't exist!")
-    elif not g.has_vertex(v2):
-        print(f"Vertex {v2} doesn't exist!")
-    elif not g.has_edge(v1, v2):
-        print("This edge doesn't exist!")
-    else:
+    try:
         print(g.weight(v1, v2))
+    except Exception as e:
+        print(e)
 
 
 def print_matrix(g):
-    if g.get_number_of_vertices == 0:
-        print("Graph is empty!")
-    else:
+    try:
         g.print_matrix()
+    except Exception as e:
+        print(e)
 
 
 def print_vertices(g):
@@ -115,24 +110,33 @@ def print_edges(g):
 
 
 def print_adjacent_vertices(g):
-    v = int(input("Enter vertex: "))
-    for vertex in g.iter_adjacent(v):
-        print(vertex, end=" ")
-    print()
+    try:
+        v = int(input("Enter vertex: "))
+        for vertex in g.iter_adjacent(v):
+            print(vertex, end=" ")
+        print()
+    except Exception as e:
+        print(e)
 
 
 def print_out_edges(g):
-    v = int(input("Enter vertex: "))
-    for edge in g.iter_out_edges(v):
-        print(edge, end=" ")
-    print()
+    try:
+        v = int(input("Enter vertex: "))
+        for edge in g.iter_out_edges(v):
+            print(edge, end=" ")
+        print()
+    except Exception as e:
+        print(e)
 
 
 def print_in_edges(g):
-    v = int(input("Enter vertex: "))
-    for edge in g.iter_in_edges(v):
-        print(edge, end=" ")
-    print()
+    try:
+        v = int(input("Enter vertex: "))
+        for edge in g.iter_in_edges(v):
+            print(edge, end=" ")
+        print()
+    except Exception as e:
+        print(e)
 
 
 def print_transposed(g):
@@ -145,15 +149,20 @@ def print_complement(g):
 
 def dfs(g):
     g.dfs()
+    print()
 
 
 def bfs(g):
     g.bfs()
+    print()
 
 
 def save(g):
-    name = input("Enter name of file with extension .txt: ")
-    g.save_to_file(name)
+    try:
+        name = input("Enter name of file with extension .txt: ")
+        g.save_to_file(name)
+    except Exception as e:
+        print("Unknown error")
 
 
 if __name__ == '__main__':

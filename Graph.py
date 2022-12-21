@@ -1,3 +1,4 @@
+from json import JSONDecodeError
 from queue import Queue
 import numpy as np
 import json
@@ -166,8 +167,14 @@ class Graph:
         :param int v2: number of second vertex of edge
         :return: boolean flag if graph contains edge of given vertices
         :rtype: bool
+        :raise Exception: if one of given vertices doesn't exist
         """
-        return True if self.matrix[v1][v2] else False
+        if not self.has_vertex(v1):
+            raise Exception(f"Vertex {v1} doesn't exist!")
+        elif not self.has_vertex(v2):
+            raise Exception(f"Vertex {v2} doesn't exist!")
+        else:
+            return True if self.matrix[v1][v2] else False
 
     def add_edge(self, v1, v2, weight=1):
         """
@@ -177,11 +184,23 @@ class Graph:
         :param int v2: number of second vertex of edge
         :param weight: weight of edge
         :type weight: int or None
+        :raise Exception: if one of given vertex doesn't exist, given vertices are identical, edge has already existed or given weight is equal to 0
         """
-        self.edge += 1
-        self.matrix[v1][v2] = weight
-        if not self.directed:
-            self.matrix[v2][v1] = weight
+        if not self.has_vertex(v1):
+            raise Exception(f"Vertex {v1} doesn't exist!")
+        elif not self.has_vertex(v2):
+            raise Exception(f"Vertex {v2} doesn't exist!")
+        elif v1 == v2:
+            raise Exception("It's a simple graph. It doesn't contain loops.")
+        elif self.has_edge(v1, v2):
+            raise Exception("This edge has already existed!")
+        elif weight == 0:
+            raise Exception("Weight mustn't be 0!")
+        else:
+            self.edge += 1
+            self.matrix[v1][v2] = weight
+            if not self.directed:
+                self.matrix[v2][v1] = weight
 
     def remove_edge(self, v1, v2):
         """
@@ -189,22 +208,36 @@ class Graph:
 
         :param int v1: number of first vertex of edge
         :param int v2: number of second vertex of edge
+        :raise Exception: if one of given vertex or edge between given vertices doesn't exist
         """
-        self.edge -= 1
-        self.matrix[v1][v2] = 0
-        if not self.directed:
-            self.matrix[v2][v1] = 0
+        if not self.has_vertex(v1):
+            raise Exception(f"Vertex {v1} doesn't exist!")
+        elif not self.has_vertex(v2):
+            raise Exception(f"Vertex {v2} doesn't exist!")
+        elif not self.has_edge(v1, v2):
+            raise Exception("This edge doesn't exist!")
+        else:
+            self.edge -= 1
+            self.matrix[v1][v2] = 0
+            if not self.directed:
+                self.matrix[v2][v1] = 0
 
     def remove_connections_with_vertex(self, v):
         """
         Removes all connections with vertex v.
 
         :param int v: number of vertex
+        :raise Exception: if given vertex doesn't exist
         """
-        for i in range(self.vertex):
-            self.remove_edge(i, v)
-            if self.directed:
-                self.remove_edge(v, i)
+        if not self.has_vertex(v):
+            raise Exception(f"Vertex {v} doesn't exist!")
+        else:
+            for i in range(self.vertex):
+                if self.has_edge(i, v):
+                    self.remove_edge(i, v)
+                if self.directed:
+                    if self.has_edge(v, i):
+                        self.remove_edge(v, i)
 
     def modify_weight(self, v1, v2, weight):
         """
@@ -213,10 +246,20 @@ class Graph:
         :param int v1: number of first vertex of edge
         :param int v2: number of second vertex of edge
         :param int weight: new weight of edge
+        :raise Exception: if one of given vertex or edge between given vertices doesn't exist or given weight is equal to 0
         """
-        self.matrix[v1][v2] = weight
-        if not self.directed:
-            self.matrix[v2][v1] = weight
+        if not self.has_vertex(v1):
+            raise Exception(f"Vertex {v1} doesn't exist!")
+        elif not self.has_vertex(v2):
+            raise Exception(f"Vertex {v2} doesn't exist!")
+        elif not self.has_edge(v1, v2):
+            raise Exception("This edge doesn't exist!")
+        elif weight == 0:
+            raise Exception("Weight mustn't be 0!")
+        else:
+            self.matrix[v1][v2] = weight
+            if not self.directed:
+                self.matrix[v2][v1] = weight
 
     def weight(self, v1, v2):
         """
@@ -224,28 +267,43 @@ class Graph:
 
         :param int v1: number of first vertex of edge
         :param int v2: number of second vertex of edge
+        :raise Exception: if one of given vertex or edge between given vertices doesn't exist
         """
-        return self.matrix[v1][v2]
+        if not self.has_vertex(v1):
+            raise Exception(f"Vertex {v1} doesn't exist!")
+        elif not self.has_vertex(v2):
+            raise Exception(f"Vertex {v2} doesn't exist!")
+        elif not self.has_edge(v1, v2):
+            raise Exception("This edge doesn't exist!")
+        else:
+            return self.matrix[v1][v2]
 
     def print_matrix(self):
-        """ Prints graph matrix adjacency. """
-        print(" ", end="  ")
-        for i in range(self.vertex):
-            if i < 10:
-                print(i, end="  ")
-            else:
-                print(i, end=" ")
-        print()
-        i = 0
-        for vertex in self.matrix:
-            if i < 10:
-                print(i, end="  ")
-            else:
-                print(i, end=" ")
-            for edge in vertex:
-                print(edge, end="  ")
+        """
+        Prints graph matrix adjacency.
+
+        :raise Exception: if graph is empty
+        """
+        if self.get_number_of_vertices == 0:
+            raise Exception("Graph is empty!")
+        else:
+            print(" ", end="  ")
+            for i in range(self.vertex):
+                if i < 10:
+                    print(i, end="  ")
+                else:
+                    print(i, end=" ")
             print()
-            i += 1
+            i = 0
+            for vertex in self.matrix:
+                if i < 10:
+                    print(i, end="  ")
+                else:
+                    print(i, end=" ")
+                for edge in vertex:
+                    print(edge, end="  ")
+                print()
+                i += 1
 
     def iter_vertices(self):
         """
@@ -261,10 +319,14 @@ class Graph:
         Iterates over adjacent vertices of vertex v.
         :param v: number of vertex
         :return: next adjacent vertex of given vertex
+        :raise Exception: if given vertex doesn't exist
         """
-        for i in range(self.vertex):
-            if self.matrix[v][i] > 0:
-                yield i
+        if not self.has_vertex(v):
+            raise Exception(f"Vertex {v} doesn't exist!")
+        else:
+            for i in range(self.vertex):
+                if self.matrix[v][i] > 0:
+                    yield i
 
     def iter_out_edges(self, v):
         """
@@ -272,10 +334,14 @@ class Graph:
 
         :param v: number of vertex
         :return: next outgoing edge from given vertex
+        :raise Exception: if given vertex doesn't exist
         """
-        for i in range(self.vertex):
-            if self.matrix[v][i] > 0:
-                yield v, i
+        if not self.has_vertex(v):
+            raise Exception(f"Vertex {v} doesn't exist!")
+        else:
+            for i in range(self.vertex):
+                if self.matrix[v][i] > 0:
+                    yield v, i
 
     def iter_in_edges(self, v):
         """
@@ -283,10 +349,14 @@ class Graph:
 
         :param v: number of vertex
         :return: next incoming edge to given vertex
+        :raise Exception: if given vertex doesn't exist
         """
-        for i in range(self.vertex):
-            if self.matrix[i][v] > 0:
-                yield i, v
+        if not self.has_vertex(v):
+            raise Exception(f"Vertex {v} doesn't exist!")
+        else:
+            for i in range(self.vertex):
+                if self.matrix[i][v] > 0:
+                    yield i, v
 
     def iter_edges(self):
         """
@@ -385,16 +455,24 @@ class Graph:
         :return: Graph object
         :rtype: Graph
         """
-        f = open(name)
-        g = Graph(json.loads(f.readline()))
-        g.__set_vertex(json.loads(f.readline()))
-        g.__set_edge(json.loads(f.readline()))
-        new_matrix = []
-        for i in range(g.vertex):
-            new_matrix.append(json.loads(f.readline()))
-        g.__set_matrix(new_matrix)
-        f.close()
-        return g
+        try:
+            f = open(name)
+            g = Graph(json.loads(f.readline()))
+            g.__set_vertex(json.loads(f.readline()))
+            g.__set_edge(json.loads(f.readline()))
+            new_matrix = []
+            for i in range(g.vertex):
+                new_matrix.append(json.loads(f.readline()))
+            g.__set_matrix(new_matrix)
+            return g
+        except FileNotFoundError as e:
+            raise e
+        except JSONDecodeError as e:
+            raise e
+        except Exception as e:
+            raise e
+        finally:
+            f.close()
 
     def save_to_file(self, name):
         """
@@ -402,10 +480,14 @@ class Graph:
 
         :param str name: name of file to save
         """
-        f = open(name, "w")
-        f.write(json.dumps(self.is_directed()) + "\n")
-        f.write(json.dumps(self.vertex) + "\n")
-        f.write(json.dumps(self.edge) + "\n")
-        for i in range(self.vertex):
-            f.write(json.dumps(self.matrix[i]) + "\n")
-        f.close()
+        try:
+            f = open(name, "w")
+            f.write(json.dumps(self.is_directed()) + "\n")
+            f.write(json.dumps(self.vertex) + "\n")
+            f.write(json.dumps(self.edge) + "\n")
+            for i in range(self.vertex):
+                f.write(json.dumps(self.matrix[i]) + "\n")
+        except Exception as e:
+            raise e
+        finally:
+            f.close()
