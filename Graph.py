@@ -317,6 +317,7 @@ class Graph:
     def iter_adjacent(self, v):
         """
         Iterates over adjacent vertices of vertex v.
+
         :param v: number of vertex
         :return: next adjacent vertex of given vertex
         :raise Exception: if given vertex doesn't exist
